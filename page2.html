@@ -2,14 +2,77 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>顔写真のアップロード</title>
-  <link rel="stylesheet" href="style.css">
+  <title>顔写真アップロード</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input[type="file"] {
+      margin: 20px 0;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-  <h1>顔写真のアップロード</h1>
-  <p>あなたの顔写真をアップロードしてください。</p>
-  <input type="file" accept="image/*">
-  <br><br>
-  <button onclick="location.href='page3.html'">次に進む</button>
+
+  <div class="container">
+    <h2>あなたの顔写真をアップロードしてください</h2>
+    <input type="file" id="photoInput" accept="image/*" />
+    <br>
+    <button id="nextBtn" disabled>次に進む</button>
+  </div>
+
+  <script>
+    const photoInput = document.getElementById('photoInput');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // ファイル選択時にボタンを有効化
+    photoInput.addEventListener('change', () => {
+      if (photoInput.files.length > 0) {
+        nextBtn.disabled = false;
+      } else {
+        nextBtn.disabled = true;
+      }
+    });
+
+    // 次へボタン押下でページ遷移
+    nextBtn.addEventListener('click', () => {
+      if (photoInput.files.length === 0) {
+        alert("写真をアップロードしてください");
+        return;
+      }
+
+      // 次のページへ移動（ここでは仮に page3.html へ）
+      window.location.href = 'page3.html';
+    });
+  </script>
+
 </body>
 </html>
