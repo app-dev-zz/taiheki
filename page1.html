@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>質問とニックネーム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>診断スタート</h1>
+  <form action="page2.html" method="GET">
+    <label>ニックネームを入力してください：<br>
+      <input type="text" name="nickname" required>
+    </label>
+    <div>
+      <p>Q1. 新しい場所に行くのが好き？</p>
+      <label><input type="radio" name="q1" value="4" required> そう思う</label>
+      <label><input type="radio" name="q1" value="3"> 少し思う</label>
+      <label><input type="radio" name="q1" value="2"> あまり思わない</label>
+      <label><input type="radio" name="q1" value="1"> 思わない</label>
+    </div>
+    <div>
+      <p>Q2. 計画よりも直感を信じる？</p>
+      <label><input type="radio" name="q2" value="4" required> そう思う</label>
+      <label><input type="radio" name="q2" value="3"> 少し思う</label>
+      <label><input type="radio" name="q2" value="2"> あまり思わない</label>
+      <label><input type="radio" name="q2" value="1"> 思わない</label>
+    </div>
+    <div>
+      <p>Q3. 人前に立つのは得意？</p>
+      <label><input type="radio" name="q3" value="4" required> そう思う</label>
+      <label><input type="radio" name="q3" value="3"> 少し思う</label>
+      <label><input type="radio" name="q3" value="2"> あまり思わない</label>
+      <label><input type="radio" name="q3" value="1"> 思わない</label>
+    </div>
+    <button type="submit">次に進む</button>
+  </form>
+</body>
+</html>

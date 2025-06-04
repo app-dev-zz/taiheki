@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>診断結果</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>診断結果</h1>
+  <ul id="results"></ul>
+
+  <script>
+    const allResults = [
+      "あなたは自由奔放なENFPタイプ！",
+      "あなたは戦略家のINTJタイプ！",
+      "あなたは理想を追うINFPタイプ！",
+      "あなたは社交的なESFPタイプ！",
+      "あなたは冷静沈着なISTJタイプ！",
+      "あなたは共感力に優れたISFJタイプ！",
+      "あなたは論理的なENTPタイプ！",
+      "あなたは献身的なENFJタイプ！",
+      "あなたは慎重なISFPタイプ！",
+      "あなたは指導者のENTJタイプ！",
+      "あなたは堅実なESTJタイプ！",
+      "あなたは冒険好きなESTPタイプ！"
+    ];
+
+    const selected = allResults.sort(() => 0.5 - Math.random()).slice(0, 10);
+    const list = document.getElementById("results");
+    selected.forEach(res => {
+      const li = document.createElement("li");
+      li.textContent = res;
+      list.appendChild(li);
+    });
+  </script>
+</body>
+</html>
