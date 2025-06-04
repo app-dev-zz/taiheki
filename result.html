@@ -1,73 +1,72 @@
-<h1 id="nicknameDisplay"></h1>
-<p id="resultText"></p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>MBTI診断 - 結果</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 id="resultText">診断結果を計算中...</h1>
+  </div>
 
-// ニックネームと回答を取得
-const nickname = localStorage.getItem("nickname");
-const answers = JSON.parse(localStorage.getItem("answers"));
+  <script>
+    function getResultFromAnswers() {
+      const q1 = localStorage.getItem("q1");
+      const q2 = localStorage.getItem("q2");
+      const q3 = localStorage.getItem("q3");
+      const q4 = localStorage.getItem("q4");
+      const q5 = localStorage.getItem("q5");
+      const q6 = localStorage.getItem("q6");
 
-// 結果候補リスト（Q1でベースを決定）
-let possibleResults = [];
+      let possibleResults = [];
 
-switch (answers.q1) {
-  case "outdoor":
-  case "somewhat_outdoor":
-    possibleResults = [1, 3, 5, 7, 9]; // 奇数限定
-    break;
-  case "somewhat_indoor":
-  case "indoor":
-    possibleResults = [2, 4, 6, 8, 10]; // 偶数限定
-    break;
-  default:
-    possibleResults = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // 念のため
-}
+      // 各設問の条件で権利を追加
+      if (q2 === "好き") {
+        possibleResults.push(1, 2);
+      }
 
-// 奇数・偶数の限定条件を保持
-const isEven = possibleResults.every(n => n % 2 === 0);
-const isOdd = possibleResults.every(n => n % 2 === 1);
+      if (q3 === "とても好き") {
+        possibleResults.push(3, 4);
+      }
 
-// 結果候補を追加する関数（奇数偶数ルールに従う）
-const addIfValid = num => {
-  if (
-    !possibleResults.includes(num) &&
-    ((isEven && num % 2 === 0) || (isOdd && num % 2 === 1))
-  ) {
-    possibleResults.push(num);
-  }
-};
+      if (q4 === "まさにその通りだ") {
+        possibleResults.push(5, 6);
+      }
 
-// Q2：「好き」「どちらかといえば好き」→ 1と2
-if (["好き", "どちらかといえば好き"].includes(answers.q2)) {
-  addIfValid(1);
-  addIfValid(2);
-}
+      if (q5 === "かなりの負けず嫌いだ") {
+        possibleResults.push(7, 8);
+      }
 
-// Q3：「とても好き」→ 3と4
-if (answers.q3 === "とても好き") {
-  addIfValid(3);
-  addIfValid(4);
-}
+      if (q6 === "かなりあるほうだ") {
+        possibleResults.push(9, 10);
+      }
 
-// Q4：「まさにその通りだ」→ 5と6
-if (answers.q4 === "まさにその通りだ") {
-  addIfValid(5);
-  addIfValid(6);
-}
+      // Q1により偶数 or 奇数に強制フィルタリング
+      const outdoorOptions = ["アウトドア", "どちらかといえばアウトドア"];
+      const indoorOptions = ["どちらかといえばインドア", "インドア"];
 
-// Q5：「かなりの負けず嫌いだ」→ 7と8
-if (answers.q5 === "かなりの負けず嫌いだ") {
-  addIfValid(7);
-  addIfValid(8);
-}
+      if (outdoorOptions.includes(q1)) {
+        possibleResults = possibleResults.filter(n => [1, 3, 5, 7, 9].includes(n));
+        if (possibleResults.length === 0) {
+          possibleResults = [1, 3, 5, 7, 9];
+        }
+      } else if (indoorOptions.includes(q1)) {
+        possibleResults = possibleResults.filter(n => [2, 4, 6, 8, 10].includes(n));
+        if (possibleResults.length === 0) {
+          possibleResults = [2, 4, 6, 8, 10];
+        }
+      }
 
-// Q6：「かなりあるほうだ」→ 9と10
-if (answers.q6 === "かなりあるほうだ") {
-  addIfValid(9);
-  addIfValid(10);
-}
+      // ランダムに1つ選ぶ
+      const randomIndex = Math.floor(Math.random() * possibleResults.length);
+      return possibleResults[randomIndex];
+    }
 
-// ランダムに1つ選ぶ
-const finalResult = possibleResults[Math.floor(Math.random() * possibleResults.length)];
-
-// 表示処理
-document.getElementById("resultText").textContent = `あなたは「${finalResult}」種ですよ！`;
-document.getElementById("nicknameDisplay").textContent = nickname;
+    // 結果を表示
+    const finalResult = getResultFromAnswers();
+    document.getElementById("resultText").innerText = `あなたは ${finalResult} 種 です！`;
+  </script>
+</body>
+</html>
