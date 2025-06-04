@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>MBTI診断（画像風）</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    img { max-width: 300px; margin-top: 20px; }
+    #result { margin-top: 30px; font-size: 1.5em; color: darkgreen; }
+  </style>
+</head>
+<body>
+  <h1>画像からMBTI診断！（仮）</h1>
+  <input type="file" accept="image/*" id="imageInput"><br>
+  <img id="preview" src="#" alt="プレビュー" style="display:none;"><br>
+  <button id="diagnoseBtn" style="margin-top: 20px;">診断する</button>
+
+  <div id="result"></div>
+
+  <script>
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+    const diagnoseBtn = document.getElementById("diagnoseBtn");
+    const resultDiv = document.getElementById("result");
+
+    const mbtiTypes = [
+      "ISTJ", "ISFJ", "INFJ", "INTJ",
+      "ISTP", "ISFP", "INFP", "INTP",
+      "ESTP", "ESFP", "ENFP", "ENTP",
+      "ESTJ", "ESFJ", "ENFJ", "ENTJ"
+    ];
+
+    imageInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    diagnoseBtn.addEventListener("click", function () {
+      const randomType = mbtiTypes[Math.floor(Math.random() * mbtiTypes.length)];
+      resultDiv.innerHTML = `あなたのMBTIタイプは <strong>${randomType}</strong> です！`;
+    });
+  </script>
+</body>
+</html>
