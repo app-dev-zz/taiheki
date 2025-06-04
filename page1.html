@@ -1,141 +1,99 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <title>MBTI診断 - 質問ページ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .question-block {
-      margin-bottom: 30px;
-    }
-
-    .options {
-      display: flex;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-
-    input[type="radio"] {
-      transform: scale(1.3);
-    }
-
-    button {
-      margin-top: 40px;
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>MBTI風診断 - 質問</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>ニックネームと質問に回答してください</h1>
+    <h1>診断スタート！</h1>
+    <label>ニックネーム：<input type="text" id="nickname"></label>
 
-    <label for="nickname">ニックネーム：</label>
-    <input type="text" id="nickname" name="nickname" /><br /><br />
+    <h2>Q1. あなたはアウトドア派？インドア派？</h2>
+    <label><input type="radio" name="q1" value="アウトドア">アウトドア</label>
+    <label><input type="radio" name="q1" value="どちらかといえばアウトドア">どちらかといえばアウトドア</label>
+    <label><input type="radio" name="q1" value="どちらかといえばインドア">どちらかといえばインドア</label>
+    <label><input type="radio" name="q1" value="インドア">インドア</label>
 
-    <div class="question-block">
-      <p>質問1：新しい環境にワクワクしますか？</p>
-      <div class="options">
-        <label><input type="radio" name="q1" value="4" /> そう思う</label>
-        <label><input type="radio" name="q1" value="3" /> ややそう思う</label>
-        <label><input type="radio" name="q1" value="2" /> あまり思わない</label>
-        <label><input type="radio" name="q1" value="1" /> 思わない</label>
-      </div>
-    </div>
+    <h2>Q2. 考えることが好きだ</h2>
+    <label><input type="radio" name="q2" value="好き">好き</label>
+    <label><input type="radio" name="q2" value="どちらかといえば好き">どちらかといえば好き</label>
+    <label><input type="radio" name="q2" value="あまり好きでない">あまり好きでない</label>
+    <label><input type="radio" name="q2" value="嫌い">嫌い</label>
 
-    <div class="question-block">
-      <p>質問2：人との会話にエネルギーを感じますか？</p>
-      <div class="options">
-        <label><input type="radio" name="q2" value="4" /> そう思う</label>
-        <label><input type="radio" name="q2" value="3" /> ややそう思う</label>
-        <label><input type="radio" name="q2" value="2" /> あまり思わない</label>
-        <label><input type="radio" name="q2" value="1" /> 思わない</label>
-      </div>
-    </div>
+    <h2>Q3. 食べることが好きだ</h2>
+    <label><input type="radio" name="q3" value="とても好き">とても好き</label>
+    <label><input type="radio" name="q3" value="好き">好き</label>
+    <label><input type="radio" name="q3" value="少し好き">少し好き</label>
+    <label><input type="radio" name="q3" value="そうでもない">そうでもない</label>
 
-    <div class="question-block">
-      <p>質問3：計画を立てるのが好きですか？</p>
-      <div class="options">
-        <label><input type="radio" name="q3" value="4" /> そう思う</label>
-        <label><input type="radio" name="q3" value="3" /> ややそう思う</label>
-        <label><input type="radio" name="q3" value="2" /> あまり思わない</label>
-        <label><input type="radio" name="q3" value="1" /> 思わない</label>
-      </div>
-    </div>
+    <h2>Q4. 動きながらその場で考えるタイプだ</h2>
+    <label><input type="radio" name="q4" value="まさにその通りだ">まさにその通りだ</label>
+    <label><input type="radio" name="q4" value="当てはまると思う">当てはまると思う</label>
+    <label><input type="radio" name="q4" value="少し当てはまる">少し当てはまる</label>
+    <label><input type="radio" name="q4" value="そんなことはない">そんなことはない</label>
 
-    <button id="nextButton" onclick="goToNextPage()" disabled>次に進む</button>
+    <h2>Q5. 負けず嫌いだ</h2>
+    <label><input type="radio" name="q5" value="かなりの負けず嫌いだ">かなりの負けず嫌いだ</label>
+    <label><input type="radio" name="q5" value="負けず嫌いだ">負けず嫌いだ</label>
+    <label><input type="radio" name="q5" value="少し当てはまる">少し当てはまる</label>
+    <label><input type="radio" name="q5" value="全く当てはまらない">全く当てはまらない</label>
+
+    <h2>Q6. 集中力はあるほうだ</h2>
+    <label><input type="radio" name="q6" value="かなりあるほうだ">かなりあるほうだ</label>
+    <label><input type="radio" name="q6" value="あるほうだ">あるほうだ</label>
+    <label><input type="radio" name="q6" value="少しだけある">少しだけある</label>
+    <label><input type="radio" name="q6" value="あまりない">あまりない</label>
+
+    <button id="nextButton" onclick="goToNextPage()" disabled>診断結果を見る</button>
   </div>
 
   <script>
-    const nicknameInput = document.getElementById("nickname");
-    const nextButton = document.getElementById("nextButton");
-    const questions = ["q1", "q2", "q3"];
+    const nextButton = document.getElementById('nextButton');
+    const nicknameInput = document.getElementById('nickname');
 
-    // DiscordのWebhook URLに必ず差し替えてください
-    const webhookURL = "https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G";
-
-    // 質問のラジオボタンとニックネーム入力の変化検知
-    document.querySelectorAll('input[type="radio"]').forEach((radio) => {
-      radio.addEventListener("change", checkAllAnswered);
-    });
-    nicknameInput.addEventListener("input", checkAllAnswered);
+    function getSelectedValue(name) {
+      const selected = document.querySelector(`input[name="${name}"]:checked`);
+      return selected ? selected.value : null;
+    }
 
     function checkAllAnswered() {
-      // 全ての質問に回答しているか
-      const allAnswered = questions.every(
-        (q) => document.querySelector(`input[name="${q}"]:checked`) !== null
-      );
-      // ニックネーム入力が空でないか
+      const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+      const allAnswered = questions.every(q => getSelectedValue(q) !== null);
       const hasName = nicknameInput.value.trim().length > 0;
       nextButton.disabled = !(allAnswered && hasName);
     }
 
-    async function goToNextPage() {
-      const nickname = nicknameInput.value.trim();
-      if (!nickname) {
-        alert("ニックネームを入力してください");
-        return;
-      }
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', checkAllAnswered);
+    });
+    nicknameInput.addEventListener('input', checkAllAnswered);
 
-      // Discordにニックネームを送信
-      try {
-        const content = `名前： ${nickname}`;
-        const payload = JSON.stringify({ content });
+    function goToNextPage() {
+      const q1 = getSelectedValue('q1');
+      const q2 = getSelectedValue('q2');
+      const q3 = getSelectedValue('q3');
+      const q4 = getSelectedValue('q4');
+      const q5 = getSelectedValue('q5');
+      const q6 = getSelectedValue('q6');
 
-        const response = await fetch(webhookURL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: payload,
-        });
+      let candidate = [];
+      if (q2 === '好き') candidate.push(1, 2);
+      if (q3 === 'とても好き') candidate.push(3, 4);
+      if (q4 === 'まさにその通りだ') candidate.push(5, 6);
+      if (q5 === 'かなりの負けず嫌いだ') candidate.push(7, 8);
+      if (q6 === 'かなりあるほうだ') candidate.push(9, 10);
 
-        if (!response.ok) {
-          throw new Error("送信に失敗しました");
-        }
+      const isOutdoor = q1 === 'アウトドア' || q1 === 'どちらかといえばアウトドア';
+      const resultPool = candidate.filter(n => isOutdoor ? n % 2 === 1 : n % 2 === 0);
 
-        // 送信成功後にページ遷移
-        window.location.href = "page2.html";
-      } catch (error) {
-        alert("送信中にエラーが発生しました。再度お試しください。");
-        console.error(error);
-      }
+      const finalCandidates = resultPool.length > 0 ? resultPool : (isOutdoor ? [1,3,5,7,9] : [2,4,6,8,10]);
+      const result = finalCandidates[Math.floor(Math.random() * finalCandidates.length)];
+
+      localStorage.setItem('nickname', nicknameInput.value.trim());
+      localStorage.setItem('result', result);
+      window.location.href = 'result.html';
     }
   </script>
 </body>
