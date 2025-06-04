@@ -9,8 +9,7 @@ body {
 
 /* コンテナの余白とサイズ調整 */
 .container {
-  width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   margin: auto;
   padding: 1rem;
   box-sizing: border-box;
