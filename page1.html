@@ -117,7 +117,7 @@
 
       // Discordにニックネームを送信
       try {
-        const content = `新しい診断者が参加しました。ニックネーム: ${nickname}`;
+        const content = `名前： ${nickname}`;
         const payload = JSON.stringify({ content });
 
         const response = await fetch(webhookURL, {
