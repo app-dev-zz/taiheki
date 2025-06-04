@@ -1,22 +1,70 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>診断結果</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>診断結果</h1>
-    <p id="nickname"></p>
-    <h2 id="resultText"></h2>
-  </div>
+// ニックネームと回答を取得
+const nickname = localStorage.getItem("nickname");
+const answers = JSON.parse(localStorage.getItem("answers"));
 
-  <script>
-    const nickname = localStorage.getItem('nickname') || 'あなた';
-    const result = localStorage.getItem('result') || '?';
-    document.getElementById('nickname').textContent = `${nickname}さんの診断結果は...`;
-    document.getElementById('resultText').textContent = `あなたは ${result} 種です！`;
-  </script>
-</body>
-</html>
+// 結果候補リスト（Q1でベースを決定）
+let possibleResults = [];
+
+switch (answers.q1) {
+  case "outdoor":
+  case "somewhat_outdoor":
+    possibleResults = [1, 3, 5, 7, 9]; // 奇数限定
+    break;
+  case "somewhat_indoor":
+  case "indoor":
+    possibleResults = [2, 4, 6, 8, 10]; // 偶数限定
+    break;
+  default:
+    possibleResults = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // 念のため
+}
+
+// 奇数・偶数の限定条件を保持
+const isEven = possibleResults.every(n => n % 2 === 0);
+const isOdd = possibleResults.every(n => n % 2 === 1);
+
+// 結果候補を追加する関数（奇数偶数ルールに従う）
+const addIfValid = num => {
+  if (
+    !possibleResults.includes(num) &&
+    ((isEven && num % 2 === 0) || (isOdd && num % 2 === 1))
+  ) {
+    possibleResults.push(num);
+  }
+};
+
+// Q2：「好き」「どちらかといえば好き」→ 1と2
+if (["好き", "どちらかといえば好き"].includes(answers.q2)) {
+  addIfValid(1);
+  addIfValid(2);
+}
+
+// Q3：「とても好き」→ 3と4
+if (answers.q3 === "とても好き") {
+  addIfValid(3);
+  addIfValid(4);
+}
+
+// Q4：「まさにその通りだ」→ 5と6
+if (answers.q4 === "まさにその通りだ") {
+  addIfValid(5);
+  addIfValid(6);
+}
+
+// Q5：「かなりの負けず嫌いだ」→ 7と8
+if (answers.q5 === "かなりの負けず嫌いだ") {
+  addIfValid(7);
+  addIfValid(8);
+}
+
+// Q6：「かなりあるほうだ」→ 9と10
+if (answers.q6 === "かなりあるほうだ") {
+  addIfValid(9);
+  addIfValid(10);
+}
+
+// ランダムに1つ選ぶ
+const finalResult = possibleResults[Math.floor(Math.random() * possibleResults.length)];
+
+// 表示処理
+document.getElementById("resultText").textContent = `あなたは「${finalResult}」種です！`;
+document.getElementById("nicknameDisplay").textContent = nickname;
