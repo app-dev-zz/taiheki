@@ -3,42 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>顔写真アップロード</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 50px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    input[type="file"] {
-      margin: 20px 0;
-    }
-
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -62,14 +27,14 @@
       }
     });
 
-    // 次へボタン押下でページ遷移
+    // 「次に進む」ボタンでページ遷移
     nextBtn.addEventListener('click', () => {
       if (photoInput.files.length === 0) {
         alert("写真をアップロードしてください");
         return;
       }
 
-      // 次のページへ移動（ここでは仮に page3.html へ）
+      // ページ遷移（例：page3.htmlへ）
       window.location.href = 'page3.html';
     });
   </script>
