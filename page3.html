@@ -1,43 +1,73 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <meta charset="UTF-8">
+  <title>MBTI診断 - 肩の写真アップロード</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>上半身写真アップロード</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .upload-section {
+      margin-top: 30px;
+    }
+
+    input[type="file"] {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-
   <div class="container">
-    <h2>あなたの上半身写真をアップロードしてください</h2>
-    <input type="file" id="photoInput" accept="image/*" />
-    <br>
-    <button id="nextBtn" disabled>次に進む</button>
+    <h1>肩の写真をアップロード</h1>
+    <p>あなたの肩の写真をアップロードしてください。</p>
+
+    <div class="upload-section">
+      <input type="file" id="shoulderImage" accept="image/*">
+    </div>
+
+    <button id="nextButton" onclick="goToNext()" disabled>次に進む</button>
   </div>
 
   <script>
-    const photoInput = document.getElementById('photoInput');
-    const nextBtn = document.getElementById('nextBtn');
+    const fileInput = document.getElementById('shoulderImage');
+    const nextButton = document.getElementById('nextButton');
 
-    // ファイル選択時にボタンを有効化
-    photoInput.addEventListener('change', () => {
-      if (photoInput.files.length > 0) {
-        nextBtn.disabled = false;
-      } else {
-        nextBtn.disabled = true;
-      }
+    // ファイルが選択されたらボタンを有効化
+    fileInput.addEventListener('change', function () {
+      nextButton.disabled = !fileInput.files.length;
     });
 
-    // 「次に進む」ボタンでページ遷移
-    nextBtn.addEventListener('click', () => {
-      if (photoInput.files.length === 0) {
-        alert("写真をアップロードしてください");
+    function goToNext() {
+      // アップロード済みかを再チェック（安全のため）
+      if (!fileInput.files.length) {
+        alert('写真をアップロードしてください');
         return;
       }
 
-      // ページ遷移（例：page3.htmlへ）
-      window.location.href = 'page4.html';
-    });
-  </script>
+      // ※ Discord Webhookなどで送信する場合はここに追加可能
 
+      // 次のページへ
+      window.location.href = 'page4.html';
+    }
+  </script>
 </body>
 </html>
