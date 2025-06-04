@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>MBTI診断 - 質問ページ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    /* 省略：元のstyleそのまま */
+    .question-block {
+      margin-bottom: 30px;
+    }
+
+    .options {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      transform: scale(1.3);
+    }
+
+    button {
+      margin-top: 40px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -14,59 +49,91 @@
     <h1>ニックネームと質問に回答してください</h1>
 
     <label for="nickname">ニックネーム：</label>
-    <input type="text" id="nickname" name="nickname"><br><br>
+    <input type="text" id="nickname" name="nickname" /><br /><br />
 
-    <!-- 質問ブロック省略 -->
+    <div class="question-block">
+      <p>質問1：新しい環境にワクワクしますか？</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="4" /> そう思う</label>
+        <label><input type="radio" name="q1" value="3" /> ややそう思う</label>
+        <label><input type="radio" name="q1" value="2" /> あまり思わない</label>
+        <label><input type="radio" name="q1" value="1" /> 思わない</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <p>質問2：人との会話にエネルギーを感じますか？</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="4" /> そう思う</label>
+        <label><input type="radio" name="q2" value="3" /> ややそう思う</label>
+        <label><input type="radio" name="q2" value="2" /> あまり思わない</label>
+        <label><input type="radio" name="q2" value="1" /> 思わない</label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <p>質問3：計画を立てるのが好きですか？</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="4" /> そう思う</label>
+        <label><input type="radio" name="q3" value="3" /> ややそう思う</label>
+        <label><input type="radio" name="q3" value="2" /> あまり思わない</label>
+        <label><input type="radio" name="q3" value="1" /> 思わない</label>
+      </div>
+    </div>
 
     <button id="nextButton" onclick="goToNextPage()" disabled>次に進む</button>
   </div>
 
   <script>
-    const nicknameInput = document.getElementById('nickname');
-    const nextButton = document.getElementById('nextButton');
-    const questions = ['q1', 'q2', 'q3'];
+    const nicknameInput = document.getElementById("nickname");
+    const nextButton = document.getElementById("nextButton");
+    const questions = ["q1", "q2", "q3"];
 
-    const webhookURL = "https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G"; // ←自分のWebhookに置き換えてください
+    // DiscordのWebhook URLに必ず差し替えてください
+    const webhookURL = "https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G";
 
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-      radio.addEventListener('change', checkAllAnswered);
+    // 質問のラジオボタンとニックネーム入力の変化検知
+    document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+      radio.addEventListener("change", checkAllAnswered);
     });
-
-    nicknameInput.addEventListener('input', checkAllAnswered);
+    nicknameInput.addEventListener("input", checkAllAnswered);
 
     function checkAllAnswered() {
-      const allAnswered = questions.every(q => document.querySelector(`input[name="${q}"]:checked`));
+      // 全ての質問に回答しているか
+      const allAnswered = questions.every(
+        (q) => document.querySelector(`input[name="${q}"]:checked`) !== null
+      );
+      // ニックネーム入力が空でないか
       const hasName = nicknameInput.value.trim().length > 0;
       nextButton.disabled = !(allAnswered && hasName);
     }
 
     async function goToNextPage() {
       const nickname = nicknameInput.value.trim();
-
       if (!nickname) {
-        alert('ニックネームを入力してください');
+        alert("ニックネームを入力してください");
         return;
       }
 
       // Discordにニックネームを送信
       try {
-        const content = `新しい診断者が参加。 ${nickname}`;
+        const content = `新しい診断者が参加しました。ニックネーム: ${nickname}`;
         const payload = JSON.stringify({ content });
 
         const response = await fetch(webhookURL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: payload
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: payload,
         });
 
         if (!response.ok) {
-          throw new Error('送信に失敗しました');
+          throw new Error("Discord送信に失敗しました");
         }
 
-        // 送信成功したら次のページへ遷移
-        window.location.href = 'page2.html';
+        // 送信成功後にページ遷移
+        window.location.href = "page2.html";
       } catch (error) {
-        alert('送信中にエラーが発生しました。再度お試しください。');
+        alert("送信中にエラーが発生しました。再度お試しください。");
         console.error(error);
       }
     }
