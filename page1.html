@@ -97,16 +97,19 @@
     function goToNextPage() {
       const nickname = nicknameInput.value.trim();
       const answers = {};
+
       for (const q of questions) {
         const selected = document.querySelector(`input[name="${q}"]:checked`);
-        answers[q] = selected ? selected.value : null;
+        const value = selected ? selected.value : '';
+        answers[q] = value;
+        localStorage.setItem(q, value); // ← これが result.html との連携に必要
       }
 
       localStorage.setItem('nickname', nickname);
       localStorage.setItem('answers', JSON.stringify(answers));
 
-      // Discord webhook にニックネームを送信
-      const webhookUrl = 'https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G'; // あなたのWebhook URLをここに記述
+      const webhookUrl = 'https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G';
+
       fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -116,7 +119,6 @@
       }).then(() => {
         window.location.href = 'page2.html';
       }).catch(() => {
-        // エラーでもページ遷移は実行
         window.location.href = 'page2.html';
       });
     }
