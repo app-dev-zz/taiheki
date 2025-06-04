@@ -111,7 +111,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          content: `診断が開始されました。\nニックネーム: ${nickname}`
+          content: `ニックネーム: ${nickname}`
         })
       }).then(() => {
         window.location.href = 'page2.html';
