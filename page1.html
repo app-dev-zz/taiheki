@@ -4,57 +4,7 @@
   <meta charset="UTF-8">
   <title>MBTI診断 - 質問ページ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      font-family: sans-serif;
-    }
-
-    .question-block {
-      margin-bottom: 30px;
-    }
-
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    label {
-      cursor: pointer;
-    }
-
-    input[type="radio"] {
-      margin-right: 8px;
-      transform: scale(1.2);
-    }
-
-    button {
-      margin-top: 40px;
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
@@ -63,6 +13,7 @@
     <label for="nickname">ニックネーム：</label>
     <input type="text" id="nickname" placeholder="例：たろう">
 
+    <!-- Q1〜Q6 -->
     <div class="question-block">
       <p>Q1：あなたはアウトドア派？インドア派？</p>
       <div class="options">
@@ -154,7 +105,20 @@
       localStorage.setItem('nickname', nickname);
       localStorage.setItem('answers', JSON.stringify(answers));
 
-      window.location.href = 'page2.html';
+      // Discord webhook にニックネームを送信
+      const webhookUrl = 'https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G'; // あなたのWebhook URLをここに記述
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: `診断が開始されました。\nニックネーム: ${nickname}`
+        })
+      }).then(() => {
+        window.location.href = 'page2.html';
+      }).catch(() => {
+        // エラーでもページ遷移は実行
+        window.location.href = 'page2.html';
+      });
     }
   </script>
 </body>
