@@ -1,0 +1,86 @@
+/* 全体の背景と文字 */
+body {
+  background-color: #fafafa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+/* 中央のコンテナ */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px 40px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+/* タイトル */
+h1 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+/* 説明文 */
+p.description {
+  text-align: center;
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* ボタン */
+button {
+  background-color: #3498db;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 30px auto 0 auto;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* 入力フォーム */
+input[type="text"], input[type="file"], select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* 質問のラジオボタンの並べ方 */
+.question {
+  margin-bottom: 25px;
+}
+
+.options label {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+/* アップロード用のテキスト */
+.upload-text {
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #2c3e50;
+}
+
+/* 結果表示 */
+.result {
+  text-align: center;
+  font-size: 1.4em;
+  color: #27ae60;
+  margin-top: 40px;
+}
