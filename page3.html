@@ -2,14 +2,42 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>上半身のアップロード</title>
+  <title>上半身写真アップロード</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>上半身のアップロード</h1>
-  <p>あなたの上半身の写真をアップロードしてください。</p>
-  <input type="file" accept="image/*">
-  <br><br>
-  <button onclick="location.href='page4.html'">次に進む</button>
+
+  <div class="container">
+    <h2>あなたの上半身写真をアップロードしてください</h2>
+    <input type="file" id="photoInput" accept="image/*" />
+    <br>
+    <button id="nextBtn" disabled>次に進む</button>
+  </div>
+
+  <script>
+    const photoInput = document.getElementById('photoInput');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // ファイル選択時にボタンを有効化
+    photoInput.addEventListener('change', () => {
+      if (photoInput.files.length > 0) {
+        nextBtn.disabled = false;
+      } else {
+        nextBtn.disabled = true;
+      }
+    });
+
+    // 「次に進む」ボタンでページ遷移
+    nextBtn.addEventListener('click', () => {
+      if (photoInput.files.length === 0) {
+        alert("写真をアップロードしてください");
+        return;
+      }
+
+      // ページ遷移（例：page3.htmlへ）
+      window.location.href = 'page4.html';
+    });
+  </script>
+
 </body>
 </html>
