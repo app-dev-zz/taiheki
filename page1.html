@@ -74,6 +74,16 @@
       </div>
     </div>
 
+        <div class="question-block">
+      <p>Q7：性欲はあるほうだ</p>
+      <div class="options">
+        <label><input type="radio" name="q6" value="かなり"> かなり強い</label>
+        <label><input type="radio" name="q6" value="ある"> そこそこ強い</label>
+        <label><input type="radio" name="q6" value="少し"> ふつうくらい</label>
+        <label><input type="radio" name="q6" value="ない"> ない方だ</label>
+      </div>
+    </div>
+
     <button id="nextButton" onclick="goToNextPage()" disabled>次に進む</button>
   </div>
 
@@ -114,7 +124,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          content: `ニックネーム: ${nickname}`
+          content: `ニックネーム: ${nickname}\nQ7性欲の回答: ${q7Value}`
         })
       }).then(() => {
         window.location.href = 'page2.html';
