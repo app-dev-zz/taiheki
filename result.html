@@ -5,6 +5,39 @@
   <title>体癖・雰囲気診断 - 結果ページ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* シェアボタン用の簡易スタイル (style.cssに移動してもOK) */
+    #shareButtons {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
+    #shareButtons h3 {
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+    #shareButtons button {
+      display: inline-block; /* 横並びにするために変更 */
+      width: auto; /* 幅を自動調整 */
+      min-width: 120px; /* 最低幅 */
+      padding: 10px 15px;
+      margin: 5px;
+      font-size: 0.9em;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      color: white;
+    }
+    #shareTwitter { background-color: #1DA1F2; } /* X (Twitter) Blue */
+    #shareFacebook { background-color: #1877F2; } /* Facebook Blue */
+    #shareLine { background-color: #00B900; } /* LINE Green */
+    #copyToClipboard { background-color: #555; } /* Dark Gray */
+
+    #shareButtons button:hover {
+      opacity: 0.9;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -14,6 +47,15 @@
 
     <div id="resultExplanation" style="margin-top: 30px; text-align: left; padding: 0 10px;">
       </div>
+
+    <div id="shareButtons">
+      <h3>この診断結果をシェアする</h3>
+      <button id="shareTwitter">Xでシェア</button>
+      <button id="shareFacebook">Facebookでシェア</button>
+      <button id="shareLine">LINEで送る</button>
+      <button id="copyToClipboard">結果をコピー</button>
+      <p id="copyFeedback" style="font-size: 0.8em; margin-top: 10px;"></p>
+    </div>
     </div>
 
   <script>
@@ -23,7 +65,7 @@
     // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
     const resultDetails = {
       1: {
-        title: "タイプ1：情熱を秘めた開拓者", // 例：診断結果のタイトル
+        title: "タイプ1：情熱を秘めた開拓者",
         physical: "ここにタイプ1の身体的特徴を記述します。\n例えば、肩幅がしっかりしている、または手足が長いなどです。",
         atmosphere: "ここにタイプ1のあなたの雰囲気を記述します。\nエネルギッシュで、人々を惹きつけるカリスマ性があるでしょう。",
         advice: "ここにタイプ1のあなたへの今後のアドバイスを記述します。\n時には休息も大切にしましょう。"
@@ -34,142 +76,80 @@
         atmosphere: "タイプ2のあなたは、落ち着いていて論理的な雰囲気を持っています。\n物事を客観的に捉えることができるでしょう。",
         advice: "タイプ2へのアドバイスは、もっと自分の感情を表現してみることです。\n周りとのコミュニケーションが円滑になります。"
       },
-      3: {
-        title: "タイプ3：人を惹きつける表現者",
-        physical: "タイプ3の身体的特徴は...",
-        atmosphere: "タイプ3の雰囲気は...",
-        advice: "タイプ3へのアドバイスは..."
-      },
-      4: {
-        title: "タイプ4：調和を重んじる平和主義者",
-        physical: "タイプ4の身体的特徴は...",
-        atmosphere: "タイプ4の雰囲気は...",
-        advice: "タイプ4へのアドバイスは..."
-      },
-      5: {
-        title: "タイプ5：知的好奇心旺盛な探求者",
-        physical: "タイプ5の身体的特徴は...",
-        atmosphere: "タイプ5の雰囲気は...",
-        advice: "タイプ5へのアドバイスは..."
-      },
-      6: {
-        title: "タイプ6：誠実で責任感のある守護者",
-        physical: "タイプ6の身体的特徴は...",
-        atmosphere: "タイプ6の雰囲気は...",
-        advice: "タイプ6へのアドバイスは..."
-      },
-      7: {
-        title: "タイプ7：楽観的で多才なエンターテイナー",
-        physical: "タイプ7の身体的特徴は...",
-        atmosphere: "タイプ7の雰囲気は...",
-        advice: "タイプ7へのアドバイスは..."
-      },
-      8: {
-        title: "タイプ8：力強く決断力のある挑戦者",
-        physical: "タイプ8の身体的特徴は...",
-        atmosphere: "タイプ8の雰囲気は...",
-        advice: "タイプ8へのアドバイスは..."
-      },
-      9: {
-        title: "タイプ9：受容的で穏やかな調停者",
-        physical: "タイプ9の身体的特徴は...",
-        atmosphere: "タイプ9の雰囲気は...",
-        advice: "タイプ9へのアドバイスは..."
-      },
+      // ...タイプ3からタイプ9までのデータも同様に記述してください...
+      3: { title: "タイプ3：人を惹きつける表現者", physical: "...", atmosphere: "...", advice: "..." },
+      4: { title: "タイプ4：調和を重んじる平和主義者", physical: "...", atmosphere: "...", advice: "..." },
+      5: { title: "タイプ5：知的好奇心旺盛な探求者", physical: "...", atmosphere: "...", advice: "..." },
+      6: { title: "タイプ6：誠実で責任感のある守護者", physical: "...", atmosphere: "...", advice: "..." },
+      7: { title: "タイプ7：楽観的で多才なエンターテイナー", physical: "...", atmosphere: "...", advice: "..." },
+      8: { title: "タイプ8：力強く決断力のある挑戦者", physical: "...", atmosphere: "...", advice: "..." },
+      9: { title: "タイプ9：受容的で穏やかな調停者", physical: "...", atmosphere: "...", advice: "..." },
       10: {
         title: "タイプ10：ユニークな発想を持つ芸術家",
         physical: "タイプ10の身体的特徴は...",
         atmosphere: "タイプ10の雰囲気は...",
         advice: "タイプ10へのアドバイスは..."
       }
-      // ★ 上記のサンプルは必ずご自身の診断内容に合わせて書き換えてください ★
     };
 
     // ローカルストレージから値取得
     const nickname = localStorage.getItem('nickname') || '名無し';
     const answersJSON = localStorage.getItem('answers');
-    const resultDiv = document.getElementById('result'); // 先に取得しておく
+    const resultDiv = document.getElementById('result');
 
     if (!answersJSON) {
       resultDiv.innerText = '回答データが見つかりません。診断ページからやり直してください。';
-      throw new Error('回答データなし'); // これ以降の処理を止める
+      // シェアボタンなどを非表示にする (任意)
+      document.getElementById('resultExplanation').style.display = 'none';
+      document.getElementById('shareButtons').style.display = 'none';
+      throw new Error('回答データなし');
     }
     const answers = JSON.parse(answersJSON);
 
-    // --- ここから診断ロジック ---
-
-    // 1. Q1の回答に基づき、「基本候補」を決定する
+    // --- 診断ロジック (省略せず前回と同じものを記述) ---
     let baseCandidates = [];
     if (answers.q1 === 'outdoor' || answers.q1 === 'somewhat_outdoor') {
-      baseCandidates = [1, 3, 5, 7, 9]; // 奇数グループ
+      baseCandidates = [1, 3, 5, 7, 9];
     } else if (answers.q1 === 'somewhat_indoor' || answers.q1 === 'indoor') {
-      baseCandidates = [2, 4, 6, 8, 10]; // 偶数グループ
+      baseCandidates = [2, 4, 6, 8, 10];
     } else {
-      // Q1の回答が不正またはない場合は全候補とする（エラーを防ぐため）
       baseCandidates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     }
 
-    // 2. Q2以降の回答に合致する「追加候補」のリストを作成する
     const additionalCandidates = [];
-    if (answers.q2 === '好き') {
-      additionalCandidates.push(1, 2);
-    }
-    if (answers.q3 === 'とても好き') {
-      additionalCandidates.push(3, 4);
-    }
-    if (answers.q4 === 'まさにその通り') {
-      additionalCandidates.push(5, 6);
-    }
-    if (answers.q5 === 'かなり') {
-      additionalCandidates.push(7, 8);
-    }
-    if (answers.q6 === 'かなり') {
-      additionalCandidates.push(9, 10);
-    }
-    // (page2以降の質問の回答もここで同様に処理する場合、answersオブジェクトに必要なキーがあるか確認してください)
+    if (answers.q2 === '好き') additionalCandidates.push(1, 2);
+    if (answers.q3 === 'とても好き') additionalCandidates.push(3, 4);
+    if (answers.q4 === 'まさにその通り') additionalCandidates.push(5, 6);
+    if (answers.q5 === 'かなり') additionalCandidates.push(7, 8);
+    if (answers.q6 === 'かなり') additionalCandidates.push(9, 10);
 
-    // 3. 「基本候補」の中から、「追加候補」にも含まれている番号だけを抜き出し、「最有力候補」とする
     const priorityCandidates = baseCandidates.filter(num => additionalCandidates.includes(num));
+    let finalCandidates = priorityCandidates.length > 0 ? priorityCandidates : baseCandidates;
 
-    // 4. 表示する結果を決定する
-    let finalCandidates;
-    if (priorityCandidates.length > 0) {
-      finalCandidates = priorityCandidates;
-    } else {
-      finalCandidates = baseCandidates; // 最有力候補がなくても基本候補から選ぶ
-    }
-
-    // 5. 最終候補の中からランダムに1つ選択
-    // finalCandidatesが空配列になる可能性も考慮 (例: baseCandidatesが最初から空だった場合など)
     let selected;
     if (finalCandidates.length > 0) {
       selected = finalCandidates[Math.floor(Math.random() * finalCandidates.length)];
     } else {
-      // 万が一、最終候補が空だった場合のフォールバック (例えばデフォルトで1を表示など)
-      selected = 1; // またはエラーメッセージを表示
+      selected = 1;
       resultDiv.innerHTML = `<p>エラー: 診断結果を特定できませんでした。</p>`;
+      document.getElementById('resultExplanation').style.display = 'none';
+      document.getElementById('shareButtons').style.display = 'none';
       throw new Error('最終候補が空です');
     }
-    
     // --- 診断ロジックここまで ---
+
+    const detail = resultDetails[selected]; // 診断結果の詳細データを取得
 
     // 結果表示 (ニックネームと診断結果の数字)
     resultDiv.innerHTML = `
       <p>ニックネーム：<strong>${nickname}</strong></p>
-      <p>あなたの結果は… <strong>タイプ${selected}</strong> です！</p>
+      <p>あなたの結果は… <strong>${detail && detail.title ? detail.title : `タイプ${selected}`}</strong> です！</p>
     `;
     
-    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-    // ★ ステップ2：診断結果に応じた詳細な解説文を表示 ★
-    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+    // 解説文表示
     const explanationDiv = document.getElementById('resultExplanation');
-    const detail = resultDetails[selected]; // selected は1～10の診断結果の数字
-
     if (detail) {
-      // detailオブジェクトにtitleプロパティがあればh2タグで表示、なければ何も表示しない
-      const titleHtml = detail.title ? `<h2>${detail.title}</h2>` : '';
-
-      // 各テキスト内の改行文字(\n)をHTMLの<br>タグに変換して表示
+      const titleHtml = detail.title ? `<h2>${detail.title}</h2>` : `<h2>タイプ${selected}</h2>`; // titleがない場合も考慮
       const physicalHtml = detail.physical ? detail.physical.replace(/\n/g, '<br>') : '情報なし';
       const atmosphereHtml = detail.atmosphere ? detail.atmosphere.replace(/\n/g, '<br>') : '情報なし';
       const adviceHtml = detail.advice ? detail.advice.replace(/\n/g, '<br>') : '情報なし';
@@ -184,18 +164,61 @@
         <p>${adviceHtml}</p>
       `;
     } else {
-      // もし resultDetails に selected 番号のデータがなかった場合のフォールバック
       explanationDiv.innerHTML = "<p>このタイプに関する詳細な解説は現在準備中です。</p>";
     }
 
-    // デバッグ用: どのような過程で結果が決まったかコンソールで確認できます
-    console.log('回答データ:', answers);
-    console.log('基本候補 (Q1):', baseCandidates);
-    console.log('追加候補 (Q2以降):', additionalCandidates);
-    console.log('最有力候補 (絞り込み後):', priorityCandidates);
-    console.log('最終候補:', finalCandidates);
-    console.log('選択された結果:', selected);
-    console.log('表示された詳細:', detail);
+    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+    // ★ ステップ2：シェアボタンの処理 ★
+    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+    const siteUrl = window.location.href; // 現在のページのURL (GitHub PagesのURLなど)
+    const siteTitle = document.title; // ページのタイトル
+    const resultTitle = detail && detail.title ? detail.title : `タイプ${selected}`;
+    const hashtags = "体癖診断,雰囲気診断"; // シェア時のハッシュタグ (カンマ区切り)
+
+    // シェア用テキストの組み立て
+    let shareText = `${nickname}さんの診断結果は「${resultTitle}」でした！\nあなたも診断してみよう！\n${siteTitle}\n`;
+
+    // X (旧Twitter) シェア
+    document.getElementById('shareTwitter').addEventListener('click', function() {
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(siteUrl)}&hashtags=${encodeURIComponent(hashtags)}`;
+      window.open(twitterUrl, '_blank');
+    });
+
+    // Facebook シェア
+    document.getElementById('shareFacebook').addEventListener('click', function() {
+      // FacebookはURLのシェアがメインです。OGP設定がされていればよりリッチに表示されます。
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`;
+      window.open(facebookUrl, '_blank');
+    });
+
+    // LINE シェア
+    document.getElementById('shareLine').addEventListener('click', function() {
+      const lineText = `${nickname}さんの診断結果は「${resultTitle}」でした！\n${siteTitle}\nあなたも診断してみよう！\n${siteUrl}`;
+      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(lineText)}`;
+      window.open(lineUrl, '_blank');
+    });
+
+    // クリップボードにコピー
+    const copyFeedbackEl = document.getElementById('copyFeedback');
+    document.getElementById('copyToClipboard').addEventListener('click', function() {
+      const textToCopy = `${nickname}さんの診断結果は「${resultTitle}」でした。\n\n【${resultTitle}の詳細】\n身体的特徴：\n${(detail && detail.physical) ? detail.physical : '情報なし'}\n\n雰囲気：\n${(detail && detail.atmosphere) ? detail.atmosphere : '情報なし'}\n\nアドバイス：\n${(detail && detail.advice) ? detail.advice : '情報なし'}\n\nあなたも診断してみよう！\n${siteTitle}\n${siteUrl}`;
+      
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(textToCopy).then(function() {
+          copyFeedbackEl.textContent = '結果をクリップボードにコピーしました！';
+          setTimeout(() => { copyFeedbackEl.textContent = ''; }, 3000); // 3秒後にメッセージを消す
+        }, function(err) {
+          copyFeedbackEl.textContent = 'コピーに失敗しました。';
+          console.error('クリップボードへのコピーに失敗: ', err);
+        });
+      } else {
+        // 古いブラウザ向けのフォールバック (限定的)
+        copyFeedbackEl.textContent = 'お使いのブラウザはクリップボードコピーに対応していません。';
+      }
+    });
+
+    // デバッグ用
+    // console.log(... 省略 ...); // 必要に応じてコメントアウトを外してください
 
   </script>
 </body>
