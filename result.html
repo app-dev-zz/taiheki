@@ -215,12 +215,13 @@
     document.getElementById('copyToClipboard').addEventListener('click', function() {
 
  // detailオブジェクトの各プロパティからHTMLタグを削除する
+    const resultTitlePlainText = resultTitle.replace(/<[^>]*>/g, '');
     const physicalPlainText = (detail && detail.physical) ? detail.physical.replace(/<[^>]*>/g, '') : '情報なし';
     const atmospherePlainText = (detail && detail.atmosphere) ? detail.atmosphere.replace(/<[^>]*>/g, '') : '情報なし';
     const advicePlainText = (detail && detail.advice) ? detail.advice.replace(/<[^>]*>/g, '') : '情報なし';
     
     // HTMLタグを削除したプレーンなテキストでコピー用の文字列を組み立てる
-    const textToCopy = `${nickname}さんの診断結果は「${resultTitle}」でした。\n\n【${resultTitle}の詳細】\n身体的特徴：\n${physicalPlainText}\n\n雰囲気：\n${atmospherePlainText}\n\nアドバイス：\n${advicePlainText}\n\nあなたも診断してみよう！\n${siteTitle}\n${siteUrl}`;
+    const textToCopy = `${nickname}さんの診断結果は「${resultTitlePlainText}」でした。\n\n【${resultTitlePlainText}の詳細】\n身体的特徴：\n${physicalPlainText}\n\n雰囲気：\n${atmospherePlainText}\n\nアドバイス：\n${advicePlainText}\n\nあなたも診断してみよう！\n${siteTitle}\n${siteUrl}`;
       
       if (navigator.clipboard) {
         navigator.clipboard.writeText(textToCopy).then(function() {
