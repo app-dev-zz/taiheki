@@ -123,3 +123,22 @@ label:hover {
     justify-content: center;
   }
 }
+
+footer.notice {
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 40px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ccc;
+}
+
+footer.notice ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+footer.notice p {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
