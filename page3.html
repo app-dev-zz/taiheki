@@ -38,7 +38,7 @@
 <body>
   <div class="container">
     <h1>写真診断 肩周辺</h1>
-    <p>胸部〜肩までの写真をアップロードしてください。</p>
+    <p>肩〜胸までの写真をアップロードしてください。</p>
 
     <div class="upload-section">
       <input type="file" id="shoulderImage" accept="image/*">
@@ -65,7 +65,7 @@
 
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("username", "診断テスト段階");
+      formData.append("username", "体癖診断");
       formData.append("content", "肩の写真");
 
       try {
@@ -86,7 +86,7 @@
 <footer class="notice">
   <p>📝 <strong>診断前のご注意</strong></p>
   <ul>
-    <li>胸部〜肩までのはっきり写っている写真をご利用ください。</li>
+    <li>肩〜胸まではっきり写っている写真をご利用ください。</li>
     <li>正確な診断のため、身体の輪郭がわかる服装（例：下着・タイトな服）の画像をご使用ください。</li>
     <li>アップロードされた画像は診断のみに使用され、完了後は速やかに削除されます。</li>
     <li>画像診断には数秒かかります。「次に進む」ボタンを押した後はそのまましばらくお待ちください。</li>
