@@ -51,7 +51,6 @@
     <div id="shareButtons">
       <h3>この診断結果をシェアする</h3>
       <button id="shareTwitter">Xでシェア</button>
-      <button id="shareFacebook">Facebookでシェア</button>
       <button id="shareLine">LINEで送る</button>
       <button id="copyToClipboard">結果をコピー</button>
       <p id="copyFeedback" style="font-size: 0.8em; margin-top: 10px;"></p>
@@ -65,30 +64,64 @@
     // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
     const resultDetails = {
       1: {
-        title: "タイプ1：情熱を秘めた開拓者",
+        title: "1種 頭脳タイプ：情熱を秘めた開拓者",
         physical: "ここにタイプ1の身体的特徴を記述します。\n例えば、肩幅がしっかりしている、または手足が長いなどです。",
         atmosphere: "ここにタイプ1のあなたの雰囲気を記述します。\nエネルギッシュで、人々を惹きつけるカリスマ性があるでしょう。",
         advice: "ここにタイプ1のあなたへの今後のアドバイスを記述します。\n時には休息も大切にしましょう。"
       },
       2: {
-        title: "タイプ2：冷静沈着な分析家",
+        title: "2種 頭脳タイプ：冷静沈着な分析家",
         physical: "タイプ2の身体的特徴は、比較的スリムで、知的な印象を与えることが多いです。\n指が細長いなどの特徴も見られます。",
         atmosphere: "タイプ2のあなたは、落ち着いていて論理的な雰囲気を持っています。\n物事を客観的に捉えることができるでしょう。",
         advice: "タイプ2へのアドバイスは、もっと自分の感情を表現してみることです。\n周りとのコミュニケーションが円滑になります。"
       },
       // ...タイプ3からタイプ9までのデータも同様に記述してください...
-      3: { title: "タイプ3：人を惹きつける表現者", physical: "...", atmosphere: "...", advice: "..." },
-      4: { title: "タイプ4：調和を重んじる平和主義者", physical: "...", atmosphere: "...", advice: "..." },
-      5: { title: "タイプ5：知的好奇心旺盛な探求者", physical: "...", atmosphere: "...", advice: "..." },
-      6: { title: "タイプ6：誠実で責任感のある守護者", physical: "...", atmosphere: "...", advice: "..." },
-      7: { title: "タイプ7：楽観的で多才なエンターテイナー", physical: "...", atmosphere: "...", advice: "..." },
-      8: { title: "タイプ8：力強く決断力のある挑戦者", physical: "...", atmosphere: "...", advice: "..." },
-      9: { title: "タイプ9：受容的で穏やかな調停者", physical: "...", atmosphere: "...", advice: "..." },
+      3: {
+        title: "3種 感情タイプ：人を惹きつける表現者",
+        physical: "...",
+        atmosphere: "...",
+        advice: "..." 
+      },
+      4: {
+        title: "4種 感情タイプ：調和を重んじる平和主義者",
+        physical: "...", 
+        atmosphere: "...", 
+        advice: "..." 
+      },
+      5: {
+        title: "5種 行動タイプ：知的好奇心旺盛な探求者",
+        physical: "...", 
+        atmosphere: "...", 
+        advice: "..."
+      },
+      6: { 
+        title: "6種 行動タイプ：誠実で責任感のある守護者", 
+        physical: "...",
+        atmosphere: "...", 
+        advice: "..." },
+      7: {
+        title: "7種 闘争タイプ：楽観的で多才なエンターテイナー", 
+        physical: "...",
+        atmosphere: "...", 
+        advice: "..."
+      },
+      8: { 
+        title: "8種 闘争タイプ：力強く決断力のある挑戦者", 
+        physical: "...", 
+        atmosphere: "...", 
+        advice: "..."
+      },
+      9: { 
+        title: "9種 集中タイプ：受容的で穏やかな調停者", 
+        physical: "...", 
+        atmosphere: "...", 
+        advice: "..."
+      },
       10: {
-        title: "タイプ10：ユニークな発想を持つ芸術家",
-        physical: "タイプ10の身体的特徴は...",
-        atmosphere: "タイプ10の雰囲気は...",
-        advice: "タイプ10へのアドバイスは..."
+        title: "10種 集中タイプ：ユニークな発想を持つ芸術家",
+        physical: "10種の身体的特徴は...",
+        atmosphere: "10種の雰囲気は...",
+        advice: "10種へのアドバイスは..."
       }
     };
 
