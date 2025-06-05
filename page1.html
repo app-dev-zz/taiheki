@@ -101,10 +101,14 @@
 
     nicknameInput.addEventListener('input', checkAllAnswered);
 
+    const ageInput = document.getElementById('age');
+  ageInput.addEventListener('input', checkAllAnswered);
+
     function checkAllAnswered() {
       const allAnswered = questions.every(q => document.querySelector(`input[name="${q}"]:checked`));
       const hasName = nicknameInput.value.trim().length > 0;
-      nextButton.disabled = !(allAnswered && hasName);
+      const hasAge = document.getElementById('age').value.trim().length > 0;
+      nextButton.disabled = !(allAnswered && hasName && hasAge);
     }
 
     function goToNextPage() {
