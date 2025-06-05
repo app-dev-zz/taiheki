@@ -122,6 +122,9 @@
       localStorage.setItem('answers', JSON.stringify(answers));
 
       const q7Value = document.querySelector('input[name="q7"]:checked')?.value || '未選択';
+
+      const ageInput = document.getElementById('age');
+const age = ageInput.value.trim() || '未入力';
       
       const webhookUrl = 'https://discord.com/api/webhooks/1379749797371580437/smRAKks4G35vKArSlqAlVf3N_m8sDVDznuW7oI5gVB6xzJ8-HN32TKxuGTAT1pxYj65G';
 
