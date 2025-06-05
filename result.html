@@ -211,25 +211,9 @@
     // シェア用テキストの組み立て
     let shareText = `${nickname}さんの診断結果は「${resultTitle}」でした！\nあなたも診断してみよう！\n${siteTitle}\n`;
 
-    // X (旧Twitter) シェア
-    document.getElementById('shareTwitter').addEventListener('click', function() {
-      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(siteUrl)}&hashtags=${encodeURIComponent(hashtags)}`;
-      window.open(twitterUrl, '_blank');
-    });
+    // X (旧Twitter) シェア(削除)
 
-    // Facebook シェア
-    document.getElementById('shareFacebook').addEventListener('click', function() {
-      // FacebookはURLのシェアがメインです。OGP設定がされていればよりリッチに表示されます。
-      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`;
-      window.open(facebookUrl, '_blank');
-    });
-
-    // LINE シェア
-    document.getElementById('shareLine').addEventListener('click', function() {
-      const lineText = `${nickname}さんの診断結果は「${resultTitle}」でした！\n${siteTitle}\nあなたも診断してみよう！\n${siteUrl}`;
-      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(lineText)}`;
-      window.open(lineUrl, '_blank');
-    });
+    // Facebook シェア(削除)
 
     // クリップボードにコピー
     const copyFeedbackEl = document.getElementById('copyFeedback');
