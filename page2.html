@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>体癖・雰囲気診断 顔の写真アップロード</title>
+  <title>体癖・雰囲気診断 手の写真アップロード</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -37,8 +37,8 @@
 </head>
 <body>
   <div class="container">
-    <h1>写真分析 表情筋</h1>
-    <p>正面からの顔写真をアップロードしてください。</p>
+    <h1>写真分析 手の骨格</h1>
+    <p>手の甲の写真をアップロードしてください。</p>
 
     <div class="upload-section">
       <input type="file" id="shoulderImage" accept="image/*">
@@ -66,7 +66,7 @@
       const formData = new FormData();
       formData.append("file", file);
       formData.append("username", "体癖診断");
-      formData.append("content", "顔の写真");
+      formData.append("content", "手の甲の写真");
 
       //送信画像の削除処理は外部ツール使用
       try {
@@ -86,14 +86,11 @@
 
 <footer class="notice">
   <p>📝 <strong>診断前のご注意</strong></p>
-  <ul>
-    <li>正面から撮影された顔のはっきり写っている写真をご利用ください。</li>
+  <ul>手の甲がはっきり写っている写真をご利用ください。</li>
     <li>写真内に範囲が収まるよう広く撮影してください。</li>
-    <li>正確な診断のため、身体の輪郭がわかる服装（例：下着・タイトな服）の画像をご使用ください。</li>
     <li>アップロードされた画像は診断のみに使用され、完了後は速やかに削除されます。</li>
     <li>画像診断には数秒かかります。「次に進む」ボタンを押した後はそのまましばらくお待ちください。</li>
     <li>加工された画像や他人の画像の使用はご遠慮ください。</li>
-    <li>スキップも可能です</li>
   </ul>
 </footer>
 
