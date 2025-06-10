@@ -185,10 +185,10 @@ footer.notice p {
 
 /* demo-caption全体の文字の太さを「通常」に設定 */
 .demo-caption {
-  font-weight: normal;
+  font-weight: normal !important;
 }
 
 /* demo-captionの中にある<strong>タグだけを「太字」に設定 */
 .demo-caption strong {
-  font-weight: bold;
+  font-weight: bold !important;
 }
