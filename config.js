@@ -1,0 +1,3 @@
+const IMAGE_URL_01 = "https://media.discordapp.net/attachments/1380100538074533989/1391218284761841744/53_20250610204137.png?ex=689699fe&is=6895487e&hm=786ce0d4010507b40182ac2f46ab35aa83ab147daa6d5f42b2cb277593fef2c8&=&format=webp&quality=lossless&width=1114&height=1486"
+const IMAGE_URL_02 = "https://media.discordapp.net/attachments/1380100538074533989/1391218285013635115/53_20250610205638.png?ex=689699fe&is=6895487e&hm=11f63f4d7702011f6c8b2318271f431e87fce29fedba4d053aa383baa1b67fc8&=&format=webp&quality=lossless&width=1114&height=1486"
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1403303794267258940/l6wRbUTmiwFKM1i0l62SjlC_RlIep-g0Mev8RuoCybtH8xkVjh3Zdibao41e0NROokLi"
