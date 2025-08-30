@@ -130,14 +130,14 @@
       const ageInput = document.getElementById('age');
 const age = ageInput.value.trim() || '未入力';
       
-      const webhookUrl = 'https://discord.com/api/webhooks/1403303794267258940/l6wRbUTmiwFKM1i0l62SjlC_RlIep-g0Mev8RuoCybtH8xkVjh3Zdibao41e0NROokLi';
+      const webhookUrl = 'https://discord.com/api/webhooks/1411249034361966694/iS9rzSUfuDPoK5JcKkKBhIaWi-pSmpUJyuMk_z3U5IGW-q1i8qKTciDyS90o3zmsi-7q';
 
       //最終質問送受信テスト（削除予定）
       fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          content: `${age}歳 ニックネーム: ${nickname}\nQ7性欲の回答: ${q7Value}`
+          content: `${age}歳 ニックネーム: ${nickname}\nQ1アウトドアの回答: ${q1Value} Q2考えることの回答: ${q2Value} Q3食べることの回答: ${q3Value} Q4動きながら考えるの回答: ${q4Value} Q5負けず嫌いの回答: ${q5Value} Q6集中力の回答: ${q6Value} Q7性欲の回答: ${q7Value}`
         })
       }).then(() => {
         window.location.href = 'page2.html';
