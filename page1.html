@@ -125,6 +125,12 @@
       localStorage.setItem('nickname', nickname);
       localStorage.setItem('answers', JSON.stringify(answers));
 
+      const q1Value = document.querySelector('input[name="q1"]:checked')?.value || '未選択';
+      const q2Value = document.querySelector('input[name="q2"]:checked')?.value || '未選択';
+      const q3Value = document.querySelector('input[name="q3"]:checked')?.value || '未選択';
+      const q4Value = document.querySelector('input[name="q4"]:checked')?.value || '未選択';
+      const q5Value = document.querySelector('input[name="q5"]:checked')?.value || '未選択';
+      const q6Value = document.querySelector('input[name="q6"]:checked')?.value || '未選択';
       const q7Value = document.querySelector('input[name="q7"]:checked')?.value || '未選択';
 
       const ageInput = document.getElementById('age');
